@@ -1,3 +1,5 @@
+**FROM https://github.com/mattlawer/MBSliderView**
+
 MBSliderView
 ========
 
