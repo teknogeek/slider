@@ -62,7 +62,7 @@ static const CGFloat gradientDimAlpha = 0.5;
         
         _label = [[MBSliderLabel alloc] initWithFrame:CGRectZero];
         _label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        _label.textColor = [UIColor whiteColor];
+        _label.textColor = [UIColor darkGrayColor];
         _label.textAlignment = UITextAlignmentCenter;
         _label.backgroundColor = [UIColor clearColor];
         _label.font = [UIFont systemFontOfSize:24];
@@ -80,7 +80,7 @@ static const CGFloat gradientDimAlpha = 0.5;
         _slider.frame = sliderFrame;
         _slider.center = ctr;
         _slider.backgroundColor = [UIColor clearColor];
-        UIImage *thumbImage = [self thumbWithColor:[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:1.0]];
+        UIImage *thumbImage = [self thumbWithColor:[UIColor colorWithRed:200.0/255.0 green:200.0/255.0 blue:200.0/255.0 alpha:0.2]];
         [_slider setThumbImage:thumbImage forState:UIControlStateNormal];
 
         UIImage *clearImage = [self clearPixel];
@@ -92,6 +92,7 @@ static const CGFloat gradientDimAlpha = 0.5;
         _slider.continuous = YES;
         _slider.value = 0.0;
         [self addSubview:_slider];
+        [self sendSubviewToBack:_slider];
         
         // Set the slider action methods
         [_slider addTarget:self 
@@ -115,11 +116,10 @@ static const CGFloat gradientDimAlpha = 0.5;
     CGFloat sliderWidth = [_slider thumbImageForState:_slider.state].size.width;
     CGSize labelSize = [_label sizeThatFits:self.bounds.size];
     
-    _label.frame = CGRectMake(sliderWidth + 30.0,
-                              CGRectGetMidY(self.bounds) - (labelSize.height / 2.0),
-                              CGRectGetWidth(self.bounds) - sliderWidth - 30.0,
-                              labelSize.height
-                              );
+    _label.frame = CGRectMake(15.0, //x
+                              CGRectGetMidY(self.bounds) - (labelSize.height / 2.0), //y
+                              CGRectGetWidth(self.bounds), //width
+                              labelSize.height); //height
     _slider.frame = self.bounds;
 }
 
@@ -157,6 +157,10 @@ static const CGFloat gradientDimAlpha = 0.5;
     [_label setTextColor:labelColor];
 }
 
+- (void) resetAlpha {
+    self.window.alpha = 0.0;
+}
+
 // UISlider actions
 - (void) sliderUp:(UISlider *)sender {
     
@@ -183,7 +187,8 @@ static const CGFloat gradientDimAlpha = 0.5;
 
 - (void) sliderChanged:(UISlider *)sender {
 
-	_label.alpha = MAX(0.0, 1.0 - (_slider.value * 3.5));
+	_label.alpha = MAX(0.0, 1.0 - (_slider.value));
+    self.window.alpha = MAX(0.0, 1.0 - (_slider.value));
 }
 
 
@@ -215,7 +220,7 @@ static const CGFloat gradientDimAlpha = 0.5;
     CGFloat hei1 = size.height-0.5;
     CGFloat wid2 = size.width-radiusp;
     CGFloat hei2 = size.height-radiusp;
-    
+/*
 	// Path
     CGContextMoveToPoint(context, 0.5, radiusp);
     CGContextAddArcToPoint(context, 0.5, 0.5, radiusp, 0.5, radius);
@@ -227,8 +232,7 @@ static const CGFloat gradientDimAlpha = 0.5;
     CGContextAddArcToPoint(context, 0.5, hei1, 0.5, hei2, radius);
     CGContextClosePath(context); 
     CGContextDrawPath(context, kCGPathFillStroke);
-    
-    
+
     // Arrow
     [[[UIColor whiteColor] colorWithAlphaComponent:0.6] setFill];
     [[[UIColor blackColor] colorWithAlphaComponent:0.3] setStroke];
@@ -251,7 +255,7 @@ static const CGFloat gradientDimAlpha = 0.5;
     CGContextAddLineToPoint(context, points[0], points[7]);
     CGContextClosePath(context); 
     CGContextDrawPath(context, kCGPathFillStroke); 
-    
+
     
     // Light
     [[[UIColor whiteColor] colorWithAlphaComponent:0.2] setFill];
@@ -265,7 +269,7 @@ static const CGFloat gradientDimAlpha = 0.5;
     CGContextAddLineToPoint(context, 0.5, mid);
     CGContextClosePath(context); 
     CGContextDrawPath(context, kCGPathFill);
-    
+   */
     // pop context 
     UIGraphicsPopContext();                             
     

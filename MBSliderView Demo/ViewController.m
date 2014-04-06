@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "MBSliderView.h"
 
 @interface ViewController ()
 - (UIColor *) randomColor;
@@ -27,7 +28,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    MBSliderView *s1 = [[MBSliderView alloc] initWithFrame:CGRectMake(0.0, 400.0, self.view.frame.size.width, 44.0)];
+    MBSliderView *s1 = [[MBSliderView alloc] initWithFrame:CGRectMake(10.0, 400.0, self.view.frame.size.width - 25.0, 44.0)];
     [s1 setText:@"Slide to Unlock My Story"]; // set the label text
     //[s1 setThumbColor:[self randomColor]]; // set custom thumb color
     //[s1 setLabelColor:[self randomColor]]; // set custom label color
@@ -58,8 +59,7 @@
 // MBSliderViewDelegate
 - (void) sliderDidSlide:(MBSliderView *)slideView {
     // Customization example
-    [slideView setThumbColor:[self randomColor]];
-    [slideView setLabelColor:[self randomColor]];
+    [super resetAlpha];
 }
 
 - (void)viewWillAppear:(BOOL)animated

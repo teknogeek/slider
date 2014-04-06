@@ -24,6 +24,7 @@
 @property (nonatomic) BOOL enabled;
 
 - (void) setThumbColor:(UIColor *)color;
+- (void) resetAlpha;
 
 @end
 
